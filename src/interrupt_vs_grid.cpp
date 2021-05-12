@@ -41,7 +41,7 @@ int main(void)
 	mysql_set_character_set(mysql_con, "utf8");
 
     // get count = 3 of interrupt group 
-    snprintf(sql_buffer, sizeof(sql_buffer), "SELECT count(*) AS numcols FROM load_list WHERE group_id=1 && number>=3 && number<6 ");
+    snprintf(sql_buffer, sizeof(sql_buffer), "SELECT count(*) AS numcols FROM load_list WHERE group_id=1  && number>=1 && number<11 ");
 	interrupt_num = turn_value_to_int(0);
 	printf("interruptable app num:%d\n", interrupt_num);
 
@@ -49,11 +49,11 @@ int main(void)
 	Pgrid_max = turn_value_to_float(0);
 	printf("Pgrid_max:%.2f\n", Pgrid_max);
 
-    app_count = interrupt_num;  // 3
+    app_count = interrupt_num;  // 10
 	variable = app_count + 1;  // 買電狀態
+	printf("flag\n");
 	int *position = new int[app_count];
 	float **INT_power = NEW2D(interrupt_num, 4, float);
-
     for (i = 1; i < interrupt_num + 1; i++) {
 
 		snprintf(sql_buffer, sizeof(sql_buffer), "SELECT start_time, end_time, operation_time, power1 FROM load_list WHERE group_id = 1 ORDER BY number ASC LIMIT %d,1", i + 1);
@@ -112,7 +112,7 @@ int main(void)
 		cout<<position[i]<<" ";
 	}
 
-	cout << "\npostion finish " << endl;
+	cout << "\nposition finish " << endl;
 
 	snprintf(sql_buffer, sizeof(sql_buffer), "SELECT value FROM LP_BASE_PARM WHERE parameter_id = 15 ");
 	int real_time = turn_value_to_int(0);
