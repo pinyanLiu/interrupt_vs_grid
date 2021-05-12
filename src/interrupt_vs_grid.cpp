@@ -56,7 +56,7 @@ int main(void)
 	float **INT_power = NEW2D(interrupt_num, 4, float);
     for (i = 1; i < interrupt_num + 1; i++) {
 
-		snprintf(sql_buffer, sizeof(sql_buffer), "SELECT start_time, end_time, operation_time, power1 FROM load_list WHERE group_id = 1 ORDER BY number ASC LIMIT %d,1", i + 1);
+		snprintf(sql_buffer, sizeof(sql_buffer), "SELECT start_time, end_time, operation_time, power1 FROM load_list WHERE group_id = 1 && number>=1 && number<11 ORDER BY number ASC LIMIT %d,1", i + 1);
 		fetch_row_value();
 		for (j = 0; j < 4; j++)
 		{INT_power[i - 1][j] = turn_float(j);}
