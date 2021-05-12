@@ -37,11 +37,11 @@ int main(void)
 		return 0;
 
 	}
-	printf("Connect to Mysql sucess!!\n");
+	printf("Connect to Mysql success!!\n");
 	mysql_set_character_set(mysql_con, "utf8");
 
     // get count = 3 of interrupt group 
-    snprintf(sql_buffer, sizeof(sql_buffer), "SELECT count(*) AS numcols FROM load_list WHERE group_id=1  && number>=1 && number<11 ");
+    snprintf(sql_buffer, sizeof(sql_buffer), "SELECT count(*) AS numcols FROM load_list WHERE group_id=1");
 	interrupt_num = turn_value_to_int(0);
 	printf("interruptable app num:%d\n", interrupt_num);
 
@@ -49,14 +49,13 @@ int main(void)
 	Pgrid_max = turn_value_to_float(0);
 	printf("Pgrid_max:%.2f\n", Pgrid_max);
 
-    app_count = interrupt_num;  // 10
+        app_count = interrupt_num;  // 10
 	variable = app_count + 1;  // 買電狀態
-	printf("flag\n");
 	int *position = new int[app_count];
 	float **INT_power = NEW2D(interrupt_num, 4, float);
     for (i = 1; i < interrupt_num + 1; i++) {
 
-		snprintf(sql_buffer, sizeof(sql_buffer), "SELECT start_time, end_time, operation_time, power1 FROM load_list WHERE group_id = 1 && number>=1 && number<11 ORDER BY number ASC LIMIT %d,1", i + 1);
+		snprintf(sql_buffer, sizeof(sql_buffer), "SELECT start_time, end_time, operation_time, power1 FROM load_list WHERE group_id = 1 && number = %d ORDER BY number ASC", i );
 		fetch_row_value();
 		for (j = 0; j < 4; j++)
 		{INT_power[i - 1][j] = turn_float(j);}
@@ -379,7 +378,7 @@ void GLPK(int *interrupt_start, int *interrupt_end, int *interrupt_ot, int *inte
 	// }
 
 	/*============================== 將決策變數結果輸出 ==================================*/
-	for (i = 1; i <= variable; i++)
+	for (i = 1; i <= app_count; i++)
 	{
 		h = i;
 
