@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../../../how/interruptVsGrid"
+			"path": "."
 		},
 		{
-			"path": "."
+			"path": "../../../../../var/www/html/how/web"
+		},
+		{
+			"path": ".."
 		}
 	],
 	"settings": {}
